@@ -1,0 +1,58 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+group = 'hadoop-mapreduce-test'
+
+repositories {
+	mavenCentral()
+}
+
+idea {
+	module {
+		downloadJavadoc = false
+		downloadSources = true
+	}
+}
+
+dependencies {
+	// Libraries needed to run the scala tools
+	compile "org.scala-lang:scala-compiler:2.11.4"
+	compile "org.scala-lang:scala-library:2.11.4"
+
+	compile "org.apache.hadoop:hadoop-core:1.0.0"
+	compile "junit:junit:4.10"
+	compile "org.hamcrest:hamcrest-all:1.1"
+	compile "org.apache.mrunit:mrunit:0.8.0-incubating"
+	testCompile "org.apache.hadoop:hadoop-test:1.0.0"
+	testCompile "com.sun.jersey:jersey-core:1.8"
+}
+
+/*
+compileScala {
+	scalaCompileOptions.useCompileDaemon = true
+
+	// optionally specify host and port of the daemon:
+	scalaCompileOptions.daemonServer = 'localhost:4243'
+}
+*/
+
+sourceSets {
+    main {
+        scala {
+            srcDir 'src/main/scala'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+        output.resourcesDir = output.classesDir
+    }
+}
+
+jar {
+  manifest {
+    attributes "Main-Class" : "hadoop.MaxTemperatureDriver"
+  }
+  from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
