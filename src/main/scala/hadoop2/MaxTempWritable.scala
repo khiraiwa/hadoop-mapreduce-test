@@ -11,8 +11,7 @@ import org.apache.hadoop.io.WritableComparable
 class MaxTempWritable(
     _key: Text,
     _temp: IntWritable
-//     ) extends Writable with WritableComparable[MaxTempWritable] {
-         ) extends WritableComparable[MaxTempWritable] {
+    ) extends Writable with WritableComparable[MaxTempWritable] {
   private val k: Text = _key
   private val temp: IntWritable = _temp
 
@@ -20,7 +19,7 @@ class MaxTempWritable(
   def value = temp
 
   def this() {
-    this(new Text("aaa"), new IntWritable(11))
+    this(new Text(""), new IntWritable(0))
   }
 
   override def write(out: DataOutput) {

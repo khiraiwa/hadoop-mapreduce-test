@@ -53,7 +53,7 @@ sourceSets {
 jar {
   manifest {
 //    attributes "Main-Class" : "hadoop.MaxTemperatureDriver"
-      attributes "Main-Class" : "hadoop2.MaxTempTop10Driver"
+//      attributes "Main-Class" : "hadoop2.MaxTempTop10Driver"
   }
   from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 }
